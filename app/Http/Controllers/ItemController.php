@@ -12,9 +12,9 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Item::all();
+		return Item::all();
     }
 
     /**
@@ -44,7 +44,16 @@ class ItemController extends Controller
      */
     public function show($itemId)
     {
-        return Item::find($itemId);
+		if (!Item::find($itemId)) {
+			return [
+				'message'=>'Not Found', 
+				'error'=>[
+					'status' => 404
+				]
+			];
+		} else {
+			return Item::find($itemId);
+		}
     }
 
     /**
@@ -56,7 +65,7 @@ class ItemController extends Controller
      */
     public function update(Request $request, $itemId)
     {
-		$item = Item::find($itemId);
+		$item = Item::find($itemId);		
 		
 		if ($request->name) {
 			$item->name = $request->name;
@@ -83,9 +92,9 @@ class ItemController extends Controller
     {
 		if (Item::destroy($itemId)) {
 			return [
-				'message'=>'success', 
-				'status'=>204
+				'message' => 'success', 
+				'status' => 204
 			];
-		};
-    }
+		}
+	}
 }
