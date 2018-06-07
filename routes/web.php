@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/api/items', function () {
+Route::get('/', function () {
     return view('index');
 });

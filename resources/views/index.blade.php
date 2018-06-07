@@ -1,40 +1,34 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html>
+  <head>
+    <title>Welcome to HyperDev!</title>
+    <meta name="description" content="Shopping and to do lists">
+    <link id="favicon" rel="icon" href="https://hyperdev.com/favicon-app.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="{{ asset('css/index.css') }}" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <main>
+        <section>
+          <h2>Shopping list</h2>
+          <form id="js-shopping-list-form">
+            <label for="shopping-list-entry">Add an item</label>
+            <input type="text" name="shopping-list-entry" id="js-new-item" placeholder="e.g., broccoli">
+            <button type="submit">Add item</button>
+          </form>
 
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<!-- this client will attempt to connect to API located at `content` attr's value -->
-	<meta name="API_ROOT" content="http://list.ful/">
-
-	<title>Listful</title>
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
-	<link href="//fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-	<link rel="stylesheet" href="index.css">
-	<link rel="icon" href="data:;base64,iVBORw0KGgo=">
-</head>
-
-<body>
-	<div class="container">
-		<h1>Listful Demo</h1>
-		<form id="js-shopping-list-form">
-			<label for="shopping-list-input">Add an item</label>
-			<input type="text" name="shopping-list-input" class="js-shopping-list-input" placeholder="e.g., broccoli">
-			<button type="submit">Add item</button>
-		</form>
-		<ul class="shopping-list js-shopping-list"></ul>
-	</div>
-	<script
-		src="https://code.jquery.com/jquery-3.2.1.min.js"
-		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-		crossorigin="anonymous"></script>
-	<script src="js/store.js"></script>
-	<script src="js/render.js"></script>
-	<script src="js/api.js"></script>
-	<script src="js/app.js"></script>
-</body>
-
+          <ul class="shopping-list js-shopping-list">
+          </ul>
+        </section>
+      </main>
+    </div>
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+	<script type="text/javascript" src="{{ asset('js/client.js') }}"></script>
+  </body>
 </html>

@@ -14,7 +14,8 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
-		return Item::all();
+		$item = Item::all()->toJson();
+		return $item;
     }
 
     /**
@@ -65,20 +66,10 @@ class ItemController extends Controller
      */
     public function update(Request $request, $itemId)
     {
-		$item = Item::find($itemId);		
-		
-		if ($request->name) {
-			$item->name = $request->name;
-		} else {
-			if ($item->checked) {
-				$item->checked = false;
-			} else {
-				$item->checked = true;
-			}
-		}
-
+		$item = Item::find($itemId);
+		$item->name = $request->name;
+		$item->checked = $request->checked;	
 		$item->save();
-
 		return $item;
     }
 
