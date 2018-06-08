@@ -45,7 +45,9 @@ class ItemController extends Controller
      */
     public function show($itemId)
     {
-		if (!Item::find($itemId)) {
+		$isValid = (int)$itemId;
+
+		if ($isValid == 0 || !Item::find($itemId)) {
 			return [
 				'message'=>'Not Found', 
 				'error'=>[
