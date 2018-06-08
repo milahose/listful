@@ -42,6 +42,10 @@ button:hover {
   margin-bottom: 15px;
 }
 
+.shopping-item:focus {
+	outline: none;
+}
+
 .shopping-item__checked {
   text-decoration: line-through;
 }

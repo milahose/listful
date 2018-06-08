@@ -1,31 +1,31 @@
-var shoppingItemTemplate = (
-	'<li class="js-shopping-item">' +
-	'<p><span class="shopping-item js-shopping-item-name"></span></p>' +
-	'<div class="shopping-item-controls">' +
-	'<button class="js-shopping-item-toggle">' +
-	'<span class="button-label">check</span>' +
-	'</button>' +
-	'<button class="js-shopping-item-delete">' +
-	'<span class="button-label">delete</span>' +
-	'</button>' +
-	'</div>' +
-	'</li>'
-);
+var shoppingItemTemplate = 
+	`<li class="js-shopping-item">
+		<input name="shopping-item" class="shopping-item"></input>
+		<div class="shopping-item-controls">
+		<button class="js-shopping-item-toggle">
+			<span class="button-label">check</span>
+		</button>
+		<button class="js-shopping-item-delete">
+			<span class="button-label">delete</span>
+		</button>
+		</div>
+	</li>`;
 
 var SHOPPING_LIST_URL = '/api/items';
 
 function getAndDisplayShoppingList() {
-	console.log( 'Retrieving shopping list' );
 	$.getJSON( SHOPPING_LIST_URL, function( items ) {
-		console.log( 'Rendering shopping list' );
 		var itemElements = items.map( function( item ) {
 			var element = $( shoppingItemTemplate );
 			element.attr( 'id', item.id );
 			var itemName = element.find( '.js-shopping-item-name' );
 			itemName.text( item.name );
+			var input = element.find( '.shopping-item' );
+			input.attr( 'value', item.name );
 			element.attr( 'data-checked', item.checked );
 			if ( item.checked ) {
-				itemName.addClass( 'shopping-item__checked' );
+				input.prop( 'disabled', true);
+				input.addClass( 'shopping-item__checked' );
 			}
 			return element
 		} );
@@ -34,7 +34,6 @@ function getAndDisplayShoppingList() {
 }
 
 function addShoppingItem( item ) {
-	console.log( 'Adding shopping item: ' + item );
 	$.ajax( {
 		method: 'POST',
 		url: SHOPPING_LIST_URL,
@@ -48,7 +47,6 @@ function addShoppingItem( item ) {
 }
 
 function deleteShoppingItem( itemId ) {
-	console.log( 'Deleting shopping item `' + itemId + '`' );
 	$.ajax( {
 		url: SHOPPING_LIST_URL + '/' + itemId,
 		method: 'DELETE',
@@ -57,7 +55,6 @@ function deleteShoppingItem( itemId ) {
 }
 
 function updateShoppingListitem( item ) {
-	console.log( 'Updating shopping list item `' + item.id + '`' );
 	$.ajax( {
 		url: SHOPPING_LIST_URL + '/' + item.id,
 		method: 'PUT',
@@ -94,13 +91,26 @@ function handleShoppingCheckedToggle() {
 	$( '.js-shopping-list' ).on( 'click', '.js-shopping-item-toggle', function( e ) {
 		e.preventDefault();
 		var element = $( e.currentTarget ).closest( '.js-shopping-item' );
-		console.log('item', element)
 		var item = {
 			id: element.attr( 'id' ),
 			checked: !JSON.parse( element.attr( 'data-checked' ) ),
-			name: element.find( '.js-shopping-item-name' ).text()
+			name: element.find( '.shopping-item' ).val()
 		}
-		console.log(item)
+
+		updateShoppingListitem( item );
+	} );
+}
+
+function handleShoppingItemUpdate() {
+	$( '.js-shopping-list' ).on( 'change', '.shopping-item', function( e ) {
+		e.preventDefault();
+		var element = $( e.currentTarget ).closest( '.js-shopping-item' );
+		var item = {
+			id: element.attr( 'id' ),
+			checked: element.attr( 'data-checked' ),
+			name: element.find( '.shopping-item' ).val()
+		}
+
 		updateShoppingListitem( item );
 	} );
 }
@@ -110,4 +120,5 @@ $( function() {
 	handleShoppingListAdd();
 	handleShoppingListDelete();
 	handleShoppingCheckedToggle();
+	handleShoppingItemUpdate();
 } );
