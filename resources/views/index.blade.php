@@ -8,7 +8,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-	<link href="{{ asset('css/index.css') }}" rel="stylesheet">
+	<!-- <link href="{{ asset('css/index.css') }}" rel="stylesheet"> -->
+
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Roboto', sans-serif;
+		}
+
+		button, input[type="text"] {
+			padding: 5px;
+		}
+
+		button:hover {
+			cursor: pointer;
+		}
+
+		#shopping-list-item {
+			width: 250px;
+		}
+
+		.container {
+			max-width: 600px;
+			margin: 0 auto;
+		}
+
+		.shopping-list {
+			list-style: none;
+			padding-left: 0;
+		}
+
+		.shopping-list > li {
+			margin-bottom: 20px;
+			border: 1px solid grey;
+			padding: 20px;
+		}
+
+		.shopping-item {
+			display: block;
+			color: grey;
+			font-style: italic;
+			font-size: 20px;
+			margin-bottom: 15px;
+		}
+
+		.shopping-item:focus {
+			outline: none;
+		}
+
+		.shopping-item__checked {
+			text-decoration: line-through;
+		}
+	</style>
   </head>
   <body>
     <div class="container">
@@ -29,6 +83,6 @@
     <script src="//code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
     crossorigin="anonymous"></script>
-	<script type="text/javascript" src="{{ asset('js/client.js') }}"></script>
+	<!-- <script type="text/javascript" src="{{ asset('js/client.js') }}"></script> -->
   </body>
 </html>
